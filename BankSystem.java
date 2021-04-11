@@ -78,6 +78,7 @@ public class BankSystem {
 	}
 
 	public void startSystem() {
+		InterestTask.getThread().setDaemon(true);
 		InterestTask.getThread().start();
 		showMenu();
 		endSystem();
@@ -85,7 +86,6 @@ public class BankSystem {
 
 	private void endSystem() {
 		task.stop();
-		InterestTask.getThread().setDaemon(true);
 	}
 
 	private void addClient(Client client) {
