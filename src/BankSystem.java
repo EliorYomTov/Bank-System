@@ -28,11 +28,18 @@ public class BankSystem {
 		return clients;
 	}
 
-	public void showMenu() throws InterruptedException {
+	public void showMenu() {
 		String userChoice = "0";
 		while (!userChoice.equals("9")) {
 			printMenu();
 			userChoice = scanner.next();
+			handleChoice(userChoice);
+		}
+		scanner.close();
+	}
+
+	private void handleChoice(String userChoice) {
+		try {
 			switch (userChoice) {
 			case "1":
 				addClient();
@@ -65,11 +72,13 @@ public class BankSystem {
 				invalidOperationMsg();
 				break;
 			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
-		scanner.close();
 	}
 
-	public void startSystem() throws InterruptedException {
+	public void startSystem() {
+		InterestTask.getThread().setDaemon(true);
 		InterestTask.getThread().start();
 		showMenu();
 		endSystem();
